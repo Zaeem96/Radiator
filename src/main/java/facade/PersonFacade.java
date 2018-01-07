@@ -13,19 +13,19 @@ import javax.persistence.RollbackException;
  * @author joacim og zam
  */
 public class PersonFacade {
-
+    
     private final EntityManagerFactory EMF;
     RadiatorClient myClient;
-
+    
     public PersonFacade(String persistenceUnit) {
-
+        
         this.EMF = Persistence.createEntityManagerFactory(persistenceUnit);
     }
-
+    
     public static void main(String[] args) {
         new PersonFacade("PU").start();
     }
-
+    
     public void start() {
         Person p = new Person();
         p.setPin("1234");
@@ -35,15 +35,15 @@ public class PersonFacade {
         p.setRadiator(r);
         createPerson(p);
     }
-
+    
     private EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
-
+    
     public Person getPerson(int id) {
         return getEntityManager().find(Person.class, id);
     }
-
+    
     public Person createPerson(Person person) {
         EntityManager em = getEntityManager();
         Person personInDB = null;
@@ -59,12 +59,15 @@ public class PersonFacade {
         }
         return personInDB;
     }
-
+    
     public Person updatePerson(Person person) {
         EntityManager em = getEntityManager();
         Person personInDB = em.find(Person.class, person.getId());
-        if(person.getRadiator().getTemperature() == null){
+        if (person.getRadiator().getTemperature() == null) {
             person.getRadiator().setTemperature(personInDB.getRadiator().getTemperature());
+        } else {
+            sendMessageToRadiator(person.getRadiator().getTemperature());
+            person.getRadiator().setCurrentTemperature(personInDB.getRadiator().getCurrentTemperature());
         }
         try {
             em.getTransaction().begin();
@@ -75,13 +78,12 @@ public class PersonFacade {
         } finally {
             em.close();
         }
-        sendMessageToRadiator(personInDB.getRadiator().getTemperature());
         return personInDB;
     }
-
+    
     public void sendMessageToRadiator(Float temperature) {
         RadiatorClient myClient = new RadiatorClient("192.168.0.104", 5000);
-        myClient.sendMessage(temperature + "");
+        myClient.sendMessage(temperature+"");
     }
-
+    
 }

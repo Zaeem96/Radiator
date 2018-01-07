@@ -13,7 +13,7 @@ class App extends Component {
     componentWillMount() {
         setInterval(async () => {
             this.fetchPerson();
-        }, 1000);
+        }, 10000);
     }
 
     fetchPerson = async () => {
@@ -23,10 +23,11 @@ class App extends Component {
 
     updateTemperature = async (e) => {
         let person = this.state.person;
-        if (e.target.id === 'up' && person.radiator.temperature<30) {
+
+        if (e.target.id === 'up' && person.radiator.temperature < 30) {
             person.radiator.temperature++;
             this.setState({person})
-        } else if (e.target.id === 'down' && person.radiator.temperature>10) {
+        } else if (e.target.id === 'down' && person.radiator.temperature > 10) {
             person.radiator.temperature--;
             this.setState({person})
 
@@ -37,7 +38,7 @@ class App extends Component {
                 'Content-Type': 'application/json'
             },
             method: "PUT",
-            body: JSON.stringify(this.state.person)
+            body: JSON.stringify(person)
         }
 
         await fetch('http://192.168.0.105:8084/Radiator/api/person', options);
@@ -46,8 +47,8 @@ class App extends Component {
     render() {
         if (this.state.loading) {
             return (
-                <div style={{height: "100vh", display: "flex", background: "black"}}>
-                    <div className='currentTemperature'>
+                <div style={{height: "100vh", background: "black"}}>
+                    <div className='loadingScreen'>
                         <RingLoader
                             color={'#36D7B7'}
                             loading={this.state.loading}
@@ -66,7 +67,7 @@ class App extends Component {
                           <span className="temperatureUp unSelectable" onClick={this.updateTemperature}>
                             <i className="material-icons md-96" id="up">keyboard_arrow_up</i>
                         </span>
-                        <span className="targetTemperature unSelectable" >
+                        <span className="targetTemperature unSelectable">
                             {this.state.person.radiator.temperature}
                         </span>
                         <span className="temperatureDown unSelectable" onClick={this.updateTemperature}>
@@ -74,7 +75,7 @@ class App extends Component {
                         </span>
                     </div>
                     <div className="col-1">
-                        <div style={{marginTop: "-90px"}}>
+                        <div style={{marginTop: "-90px", minWidth: 100}}>
 
                             <Thermometer
                                 theme="light"

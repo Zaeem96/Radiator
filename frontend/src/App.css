@@ -11,6 +11,13 @@
     top: -18%;
 }
 
+.loadingScreen{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .temperatureDown {
     color: white;
     position: absolute;
@@ -25,7 +32,7 @@
 .targetTemperature  {
     color: white;
     position: absolute;
-    padding-left: 40px;
+    padding-left: 42px;
     font-size: 2.5em;
     top: 20%;
 }
@@ -34,11 +41,6 @@
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
-
-    /*
-      Introduced in IE 10.
-      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
-    */
     -ms-user-select: none;
     user-select: none;
 }
