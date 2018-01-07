@@ -9,12 +9,14 @@ void setup() {
   
 }
 void loop() {
-  motor.update();
-  if (Serial.available()) { 
-    motor.setMotorDirection(readData());
-  }
-  Serial.println(checkTemperature(analogRead(sensorPin)));
-  delay(5000);
+ // motor.update();
+  //if (Serial.available()) { 
+   // motor.setMotorDirection(readData());
+  //}
+  float temp = checkTemperature(analogRead(sensorPin));
+  
+  if(temp
+  delay(1000);
 }
 
 int readData() {
@@ -24,8 +26,9 @@ int readData() {
 }
 
 float checkTemperature(int sensorVal) {
-  float voltage = (sensorVal / 1024.0) * 5.0;
-  return (voltage - .5) * 100;
+  float voltage = sensorVal * (5000/1024);
+  Serial.println((voltage-500)/10);
+  return (voltage - 500) / 10;
 }
 
 
