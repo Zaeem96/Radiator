@@ -22,16 +22,13 @@ class App extends Component {
     }
 
     updateTemperature = async (e) => {
-        let person = this.state.person;
-
+        let person = (this.state.person);
         if (e.target.id === 'up' && person.radiator.temperature < 30) {
             person.radiator.temperature++;
-            this.setState({person})
         } else if (e.target.id === 'down' && person.radiator.temperature > 10) {
             person.radiator.temperature--;
-            this.setState({person})
-
         }
+        this.setState({person})
         const options = {
             headers: {
                 'Accept': 'application/json',

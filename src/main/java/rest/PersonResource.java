@@ -36,7 +36,6 @@ public class PersonResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void updatePerson(String content) {
-        System.out.println(content);
         p.updatePerson(gson.fromJson(content, Person.class));
     }
 

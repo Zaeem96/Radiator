@@ -63,11 +63,14 @@ public class PersonFacade {
     public Person updatePerson(Person person) {
         EntityManager em = getEntityManager();
         Person personInDB = em.find(Person.class, person.getId());
+        // arduino
         if (person.getRadiator().getTemperature() == null) {
             person.getRadiator().setTemperature(personInDB.getRadiator().getTemperature());
-        } else {
-            sendMessageToRadiator(person.getRadiator().getTemperature());
+            // frontend
+        } else if(person.getRadiator().getCurrentTemperature() != null && person.getRadiator().getTemperature() != null) {
+            System.out.println("update");
             person.getRadiator().setCurrentTemperature(personInDB.getRadiator().getCurrentTemperature());
+            sendMessageToRadiator(person.getRadiator().getTemperature());
         }
         try {
             em.getTransaction().begin();

@@ -14,6 +14,7 @@ float currentTemperature;
 
 void setup() {
   Serial.begin(9600);
+  motor.clockwise(256);
   motorPosition = 0;
   // Wait 2 seconds, to make sure everything is initialized.
   delay(2000);
