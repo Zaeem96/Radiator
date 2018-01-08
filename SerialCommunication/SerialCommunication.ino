@@ -24,9 +24,9 @@ void setup() {
 }
 
 void loop() {
-  // Read current temperature from arduino
+  
   setCurrentTemperature();
-  // If something is sent on the usb bus, read it and update temp.
+ 
   recvData();
   // Try to update the motorPosition
   updatePosition();
@@ -37,6 +37,8 @@ void loop() {
 
 // Updates motorPosition
 void updatePosition() {
+  Serial.println("------------------------------------------------");
+  Serial.println("currentTemperature:" +String(currentTemperature));
   Serial.println("targetTemperature:" + String(targetTemperature));
   Serial.println("Boundaries:"+String(checkTemperatureBoundaries()));
   if (checkTemperatureBoundaries()) {
@@ -60,6 +62,7 @@ boolean checkTemperatureBoundaries() {
   return !(targetTemperature > currentTemperature - 1 && targetTemperature < currentTemperature + 1);
 }
 
+// Read current temperature from arduino
 float setCurrentTemperature() {
   // Read voltage on sensor
   float voltage = (analogRead(sensorPin) / 1024.0) * 5.0;
@@ -69,6 +72,7 @@ float setCurrentTemperature() {
   Serial.println(currentTemperature);
 }
 
+ // If something is sent on the usb bus, read it and update temp.
 void recvData() {
   static byte ndx = 0;
   char endMarker = '\n';

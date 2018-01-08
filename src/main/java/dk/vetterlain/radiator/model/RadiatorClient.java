@@ -47,10 +47,5 @@ public class RadiatorClient extends Thread {
         }
 
     }
-//
-//    public String readMessage() throws IOException {
-//        InputStream input = CLIENTSOCKET.getInputStream();
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-//        return reader.readLine();
-//    }
+
 }

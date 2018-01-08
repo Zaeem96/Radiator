@@ -17,18 +17,19 @@ class App extends Component {
     }
 
     fetchPerson = async () => {
-        const person = await (await fetch('http://192.168.0.105:8084/Radiator/api/person')).json();
+        const person = await (await fetch('api/person')).json();
         this.setState({person, loading: false});
     }
 
     updateTemperature = async (e) => {
-        let person = (this.state.person);
+        let person = this.state.person;
         if (e.target.id === 'up' && person.radiator.targetTemperature < 30) {
             person.radiator.targetTemperature++;
         } else if (e.target.id === 'down' && person.radiator.targetTemperature > 10) {
             person.radiator.targetTemperature--;
         }
-        this.setState({person})
+        this.setState({person});
+
         const options = {
             headers: {
                 'Accept': 'application/json',
@@ -38,7 +39,7 @@ class App extends Component {
             body: JSON.stringify(person)
         }
 
-        await fetch('http://192.168.0.105:8084/Radiator/api/person', options);
+        await fetch('api/person', options);
     }
 
     render() {
@@ -77,7 +78,7 @@ class App extends Component {
                             <Thermometer
                                 theme="light"
                                 value={Math.floor(this.state.person.radiator.currentTemperature)}
-                                max="35"
+                                max="30"
                                 format="°C"
                                 size="large"
                                 height="300"
