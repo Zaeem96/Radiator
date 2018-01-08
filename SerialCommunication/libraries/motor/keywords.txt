@@ -1,5 +1,3 @@
 Motor	KEYWORD1
 clockwise	KEYWORD2
 counterclockwise	KEYWORD2
-setMotorDirection	KEYWORD2
-update	KEYWORD2
