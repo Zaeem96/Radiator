@@ -13,11 +13,10 @@ Motor::Motor(int motorPin1, int motorPin2, int motorPin3, int motorPin4) {
     _motorPin4 = motorPin4;
 
     _motorSpeed = (1 / 15 + 5);
-    _motorDirection = 0;
 }
 
-void Motor::clockwise(int t) {
-    for (int i = 0; i < t; i++) {
+void Motor::clockwise(int steps) {
+    for (int i = 0; i < steps; i++) {
         // 1
         digitalWrite(_motorPin4, HIGH);
         digitalWrite(_motorPin3, LOW);
@@ -67,10 +66,14 @@ void Motor::clockwise(int t) {
         digitalWrite(_motorPin1, HIGH);
         delay(_motorSpeed);
     }
+    digitalWrite(_motorPin4, LOW);
+    digitalWrite(_motorPin3, LOW);
+    digitalWrite(_motorPin2, LOW);
+    digitalWrite(_motorPin1, LOW);
 }
 
-void Motor::counterclockwise(int t) {
-    for (int i = 0; i < t; i++) {
+void Motor::counterclockwise(int steps) {
+    for (int i = 0; i < steps; i++) {
         // 1
         digitalWrite(_motorPin1, HIGH);
         digitalWrite(_motorPin2, LOW);
@@ -120,4 +123,8 @@ void Motor::counterclockwise(int t) {
         digitalWrite(_motorPin4, HIGH);
         delay(_motorSpeed);
     }
+    digitalWrite(_motorPin4, LOW);
+    digitalWrite(_motorPin3, LOW);
+    digitalWrite(_motorPin2, LOW);
+    digitalWrite(_motorPin1, LOW);
 }
