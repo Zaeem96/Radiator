@@ -17,7 +17,7 @@ public class Radiator implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Float temperature;
+    private Float targetTemperature;
     private Float currentTemperature;
 
     public Float getCurrentTemperature() {
@@ -36,17 +36,17 @@ public class Radiator implements Serializable {
         this.id = id;
     }
 
-    public Float getTemperature() {
-        return temperature;
+    public Float getTargetTemperature() {
+        return targetTemperature;
     }
 
-    public void setTemperature(Float temperature) {
-        this.temperature = temperature;
+    public void setTargetTemperature(Float temperature) {
+        this.targetTemperature = temperature;
     }
 
     @Override
     public String toString() {
-        return "Radiator{" + "id=" + id + ", temperature=" + temperature + ", currentTemperature=" + currentTemperature + '}';
+        return "Radiator{" + "id=" + id + ", temperature=" + targetTemperature + ", currentTemperature=" + currentTemperature + '}';
     }
 
 }

@@ -23,10 +23,10 @@ class App extends Component {
 
     updateTemperature = async (e) => {
         let person = (this.state.person);
-        if (e.target.id === 'up' && person.radiator.temperature < 30) {
-            person.radiator.temperature++;
-        } else if (e.target.id === 'down' && person.radiator.temperature > 10) {
-            person.radiator.temperature--;
+        if (e.target.id === 'up' && person.radiator.targetTemperature < 30) {
+            person.radiator.targetTemperature++;
+        } else if (e.target.id === 'down' && person.radiator.targetTemperature > 10) {
+            person.radiator.targetTemperature--;
         }
         this.setState({person})
         const options = {
@@ -65,14 +65,14 @@ class App extends Component {
                             <i className="material-icons md-96" id="up">keyboard_arrow_up</i>
                         </span>
                         <span className="targetTemperature unSelectable">
-                            {this.state.person.radiator.temperature}
+                            {this.state.person.radiator.targetTemperature}
                         </span>
                         <span className="temperatureDown unSelectable" onClick={this.updateTemperature}>
                             <i className="material-icons md-96" id="down">keyboard_arrow_down</i>
                         </span>
                     </div>
                     <div className="col-1">
-                        <div style={{marginTop: "-90px", minWidth: 100}}>
+                        <div style={{marginTop: "-90px", minWidth: 50}}>
 
                             <Thermometer
                                 theme="light"

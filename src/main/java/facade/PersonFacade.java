@@ -31,7 +31,7 @@ public class PersonFacade {
         p.setPin("1234");
         p.setUsername("user");
         Radiator r = new Radiator();
-        r.setTemperature(20F);
+        r.setTargetTemperature(20F);
         p.setRadiator(r);
         createPerson(p);
     }
@@ -64,13 +64,12 @@ public class PersonFacade {
         EntityManager em = getEntityManager();
         Person personInDB = em.find(Person.class, person.getId());
         // arduino
-        if (person.getRadiator().getTemperature() == null) {
-            person.getRadiator().setTemperature(personInDB.getRadiator().getTemperature());
+        if (person.getRadiator().getTargetTemperature() == null) {
+            person.getRadiator().setTargetTemperature(personInDB.getRadiator().getTargetTemperature());
             // frontend
-        } else if(person.getRadiator().getCurrentTemperature() != null && person.getRadiator().getTemperature() != null) {
-            System.out.println("update");
+        } else if(person.getRadiator().getCurrentTemperature() != null && person.getRadiator().getTargetTemperature() != null) {
             person.getRadiator().setCurrentTemperature(personInDB.getRadiator().getCurrentTemperature());
-            sendMessageToRadiator(person.getRadiator().getTemperature());
+            sendMessageToRadiator(person.getRadiator().getTargetTemperature());
         }
         try {
             em.getTransaction().begin();
